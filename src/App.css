@@ -4,6 +4,7 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   color: #333;
+  background-color: #eceff2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -21,4 +22,5 @@ a {
 
 main {
   flex-grow: 1;
+  padding: 30px 100px;
 }
