@@ -23,6 +23,14 @@ const StyleNavLink = styled(NavLink)`
   }
 `;
 
+const Login = styled.div`
+  margin-left: auto;
+`;
+
+const Button = styled.button`
+  margin-left: 10px;
+`;
+
 const Header: React.FC = () => {
   return (
     <StyledHeader>
@@ -38,6 +46,14 @@ const Header: React.FC = () => {
           Histroy
         </StyleNavLink>
       </nav>
+      <Login>
+        <Button>
+          <StyleNavLink to="/login">登陆</StyleNavLink>
+        </Button>
+        <Button>
+          <StyleNavLink to="/register">注册</StyleNavLink>
+        </Button>
+      </Login>
     </StyledHeader>
   );
 };
