@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Form, Input, Button } from "antd";
+import { useStores } from "../stores";
 
 const Wrapper = styled.div`
   max-width: 600px;
@@ -16,8 +17,18 @@ const Title = styled.h1`
 `;
 
 const Register: React.FC = () => {
+  const { AuthStore } = useStores();
   const onFinish = (values: any) => {
     console.log("Success:", values);
+    AuthStore.setUsername(values.username);
+    AuthStore.setPassword(values.password);
+    AuthStore.resister()
+      .then(() => {
+        console.log("注册成功 跳转首页");
+      })
+      .catch(() => {
+        console.log("注册失败 什么都不做");
+      });
   };
 
   const onFinishFailed = (errorInfo: any) => {

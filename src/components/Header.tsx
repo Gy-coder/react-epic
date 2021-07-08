@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../logo.svg";
 import style from "styled-components";
 import styled from "styled-components";
 import { Button } from "antd";
+import { useStores } from "../stores";
 
 const StyledHeader = style.header`
   background-color: #02101f;
@@ -33,7 +34,16 @@ const StyledButton = styled(Button)`
 `;
 
 const Header: React.FC = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const { UserStore, AuthStore } = useStores();
+  const handleLogin = () => {
+    console.log("跳转到登陆页面");
+  };
+  const handleLogout = () => {
+    AuthStore.logout();
+  };
+  const handleRegister = () => {
+    console.log("跳转到注册页面");
+  };
   return (
     <StyledHeader>
       <StyledImg src={Logo} />
@@ -49,12 +59,13 @@ const Header: React.FC = () => {
         </StyleNavLink>
       </nav>
       <Login>
-        {isLogin ? (
+        {UserStore ? (
           <>
-            你好 jirengu{" "}
+            {UserStore.currentUser?.attributes.username}
             <StyledButton
+              type="primary"
               onClick={() => {
-                setIsLogin(false);
+                handleLogout();
               }}
             >
               注销
@@ -65,12 +76,19 @@ const Header: React.FC = () => {
             <StyledButton
               type="primary"
               onClick={() => {
-                setIsLogin(true);
+                handleLogin();
               }}
             >
               登陆
             </StyledButton>
-            <StyledButton type="primary">注册</StyledButton>
+            <StyledButton
+              type="primary"
+              onClick={() => {
+                handleRegister();
+              }}
+            >
+              注册
+            </StyledButton>
           </>
         )}
       </Login>
