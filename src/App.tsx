@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
 import NotFound from "./pages/NotFound";
+import "antd/dist/antd.css";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
