@@ -1,5 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { observer } from "mobx-react";
+import { NavLink, useHistory } from "react-router-dom";
 import Logo from "../logo.svg";
 import style from "styled-components";
 import styled from "styled-components";
@@ -33,16 +34,17 @@ const StyledButton = styled(Button)`
   margin-left: 10px;
 `;
 
-const Header: React.FC = () => {
+const Header: React.FC = observer(() => {
   const { UserStore, AuthStore } = useStores();
+  const histroy = useHistory();
   const handleLogin = () => {
-    console.log("跳转到登陆页面");
+    histroy.push("/login");
   };
   const handleLogout = () => {
     AuthStore.logout();
   };
   const handleRegister = () => {
-    console.log("跳转到注册页面");
+    histroy.push("/register");
   };
   return (
     <StyledHeader>
@@ -59,9 +61,11 @@ const Header: React.FC = () => {
         </StyleNavLink>
       </nav>
       <Login>
-        {UserStore ? (
+        {UserStore.currentUser ? (
           <>
-            {UserStore.currentUser?.attributes.username}
+            <span style={{ color: "white" }}>
+              {UserStore.currentUser.attributes.username}
+            </span>
             <StyledButton
               type="primary"
               onClick={() => {
@@ -94,6 +98,6 @@ const Header: React.FC = () => {
       </Login>
     </StyledHeader>
   );
-};
+});
 
 export default Header;
