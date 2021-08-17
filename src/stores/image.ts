@@ -8,6 +8,7 @@ class ImageStore {
   @observable fileName: string = "";
   @observable file: File | null = null;
   @observable isUploading: boolean = false;
+  @observable serverFile: File | null = null;
   @action setFileName(newFileName: string) {
     this.fileName = newFileName;
   }
@@ -16,12 +17,21 @@ class ImageStore {
   }
   @action upload() {
     this.isUploading = true;
+    this.serverFile = null;
     return new Promise((resolve, reject) => {
       Uploader.add(this.file as File, this.fileName)
-        .then((serverFile) => resolve(serverFile))
+        // @ts-ignore
+        .then((serverFile: File) => {
+          this.serverFile = serverFile;
+          resolve(serverFile);
+        })
         .catch((error) => reject(error))
         .finally(() => (this.isUploading = false));
     });
+  }
+  @action reset() {
+    this.isUploading = false;
+    this.serverFile = null;
   }
 }
 

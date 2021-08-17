@@ -1,9 +1,8 @@
 import AV, { User } from "leancloud-storage";
 
 AV.init({
-  appId: "69iInJ8ccuDDz4JtMfcp9jYx-gzGzoHsz",
-  appKey: "wJDL00T3LCTIIUh1u6PRu4Ye",
-  serverURL: "https://69iinj8c.lc-cn-n1-shared.com",
+  appId: "j99WOvGj2EsogIFuaQUjN1kB-MdYXbMMI",
+  appKey: "7HqldeykbezPyc9OPn9r3SQh",
 });
 
 console.log("start....");
@@ -50,6 +49,23 @@ const Uploader = {
       );
     });
   },
+  find({ page = 0, limit = 10 }) {
+    const query = new AV.Query("Image");
+    query.include("owner");
+    query.limit(limit);
+    query.skip(page * limit);
+    query.descending("createAt");
+    query.equalTo("owner", AV.User.current());
+    return new Promise((resolve, reject) => {
+      query
+        .find()
+        .then((results) => resolve(results))
+        .catch((error) => reject(error));
+    });
+  },
 };
+
+// @ts-ignore
+window.Uploader = Uploader;
 
 export { Auth, Uploader };

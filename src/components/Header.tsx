@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import { NavLink, useHistory } from "react-router-dom";
 import Logo from "../logo.svg";
@@ -46,6 +46,9 @@ const Header: React.FC = observer(() => {
   const handleRegister = () => {
     histroy.push("/register");
   };
+  useEffect(() => {
+    UserStore.pullUser();
+  }, []);
   return (
     <StyledHeader>
       <StyledImg src={Logo} />
