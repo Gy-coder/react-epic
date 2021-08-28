@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import { NavLink, useHistory } from "react-router-dom";
-import Logo from "../logo.svg";
+import Logo from "../banana.png";
 import style from "styled-components";
 import styled from "styled-components";
 import { Button } from "antd";
 import { useStores } from "../stores";
 
 const StyledHeader = style.header`
-  background-color: #02101f;
+  background: #4d4757;
   padding: 10px 100px;
   display: flex;
   align-items: center;
@@ -51,16 +51,18 @@ const Header: React.FC = observer(() => {
   }, []);
   return (
     <StyledHeader>
-      <StyledImg src={Logo} />
+      <NavLink to="/" exact>
+        <StyledImg src={Logo} />
+      </NavLink>
       <nav>
         <StyleNavLink to="/" exact>
           Home
         </StyleNavLink>
-        <StyleNavLink to="/about" exact>
-          About
-        </StyleNavLink>
         <StyleNavLink to="/histroy" exact>
           Histroy
+        </StyleNavLink>
+        <StyleNavLink to="/about" exact>
+          About
         </StyleNavLink>
       </nav>
       <Login>
